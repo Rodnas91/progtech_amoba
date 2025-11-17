@@ -19,7 +19,6 @@ public class Tabla {
     }
 
     public void kirajzol() {
-        // Oszlopszámok kiírása
         System.out.print("   ");
         for (int oszlop = 1; oszlop <= meret; oszlop++) {
             System.out.printf(" %d  ", oszlop);
@@ -27,14 +26,12 @@ public class Tabla {
         System.out.println();
 
         for (int sor = 0; sor < meret; sor++) {
-            // Vízszintes elválasztó
             System.out.print("   ");
             for (int j = 0; j < meret; j++) {
                 System.out.print("+---");
             }
             System.out.println("+");
 
-            // Sor tartalma
             System.out.printf("%2d ", sor + 1); // Sor száma
             for (int oszlop = 0; oszlop < meret; oszlop++) {
                 System.out.print("| " + mezok[sor][oszlop] + " ");
@@ -42,7 +39,6 @@ public class Tabla {
             System.out.println("|");
         }
 
-        // Alsó vonal lezárása
         System.out.print("   ");
         for (int j = 0; j < meret; j++) {
             System.out.print("+---");
@@ -57,6 +53,65 @@ public class Tabla {
         }   else {
             return false;
         }
+    }
+
+    public boolean vanNyertes(char jel) {
+        //sor
+        for (int i = 0; i < meret; i++) {
+            int db = 0;
+            for (int j = 0; j < meret; j++) {
+                if (mezok[i][j] == jel) {
+                    db++;
+                    if (db == 5) return true;
+                }   else {
+                    db = 0;
+                }
+            }
+        }
+
+        //oszlop
+        for (int j = 0; j < meret; j++) {
+            int db = 0;
+            for (int i = 0; i < meret; i++) {
+                if (mezok[i][j] == jel) {
+                    db++;
+                    if (db == 5) return true;
+                }   else {
+                    db = 0;
+                }
+            }
+        }
+
+        //atlo bal
+        for (int i = 0; i <= meret - 5; i++) {
+            for (int j = 0; j <= meret - 5; j++) {
+                int db = 0;
+                for (int k = 0; k < meret; k++) {
+                    if (mezok[i + k][j + k] == jel) {
+                        db++;
+                        if (db == 5) return true;
+                    }   else {
+                        break;
+                    }
+                }
+            }
+        }
+
+        //atlo jobb
+        for (int i = 0; i <= meret - 5; i++) {
+            for (int j = 4; j < meret - 5; j++) {
+                int db = 0;
+                for (int k = 0; k < 5; k++) {
+                    if  (mezok[i + k][j + k] == jel) {
+                        db++;
+                        if (db == 5) return true;
+                    }   else {
+                        break;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public int getMeret() {
@@ -77,4 +132,6 @@ public class Tabla {
         }
         return szabadMezok;
     }
+
+
 }
